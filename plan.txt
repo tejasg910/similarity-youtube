@@ -1,0 +1,15 @@
+Create directory structure 
+Create a npm project and install all dependencies 
+    dependencies 
+        express 
+        ejs express-ejs-layouts
+        -dev dependencies 
+            nodemon 
+
+crete expres server
+create home page (tailwind css)
+create cart page    
+    order summer
+    empty cart 
+create order controller
+
