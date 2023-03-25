@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
 //set template engine
 
 app.use(expressEjsLayouts);
+//seting views dir
 app.set("views", path.join(__dirname, "/resource/views"));
 app.set("view engine", "ejs");
 app.listen(8000, () => {

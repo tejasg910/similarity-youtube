@@ -7,8 +7,7 @@
   \****************************/
 /***/ (() => {
 
-console.log("hello from app.js");
-var variable = 3232;
+
 
 /***/ }),
 
