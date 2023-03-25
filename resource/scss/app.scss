@@ -42,3 +42,29 @@ section.hero{
     }
     
 }
+
+
+.btn-primary{
+    background:$primary;
+    transition: $smooth;
+    &:hover{
+        background:$primary-hover;
+    }
+}
+section.cart{
+    background: $seconndary;
+}
+
+.login , .register{
+    background: $seconndary;
+    min-height: calc(100vh - 86px);
+}
+
+section.login{
+    a{
+        color: $primary;
+        &:hover{
+            color: $primary-hover;
+        }
+    }
+}
