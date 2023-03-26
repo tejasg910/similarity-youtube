@@ -1,6 +1,6 @@
 const User = require("../../../modals/User");
 const bcrypt = require("bcrypt");
-
+const { toast } = require("react-toastify");
 const notifier = require("node-notifier");
 const loginController = (req, res, next) => {
   res.render("auth/login");
@@ -26,6 +26,7 @@ const registerUser = async (req, res, next) => {
   // res
   //   .status(201)
   //   .json({ success: true, message: "Account created successfully" });
+
   res.redirect("/login");
 };
 
@@ -48,7 +49,7 @@ const loginUser = async (req, res) => {
     return;
   }
 
-  res.redirect("/");
+  res.redirect("/?msg=success");
   return;
 };
 
