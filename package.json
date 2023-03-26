@@ -22,9 +22,12 @@
   },
   "homepage": "https://github.com/tejasg910/similarity-youtube#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "express-ejs-layouts": "^2.5.1"
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^7.0.3",
+    "node-notifier": "^10.0.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

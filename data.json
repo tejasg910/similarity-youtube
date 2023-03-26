@@ -1,0 +1,58 @@
+[
+   
+
+
+
+
+
+
+
+    {
+        "name":" Neapolitan Pizza",
+        "price" : 230,
+        "size":"large", 
+        "image":"pizza.png"
+    },
+     {
+        "name":"Chicago Pizza",
+        "price" : 230,
+        "size":"large", 
+        "image":"pizza.png"
+    },
+     {
+        "name":"New York-Style Pizza.",
+        "price" : 230,
+        "size":"large", 
+        "image":"pizza.png"
+    },
+     {
+        "name":"Sicilian Pizza",
+        "price" : 230,
+        "size":"large", 
+        "image":"pizza.png"
+    },
+     {
+        "name":"Greek Pizza",
+        "price" : 230,
+        "size":"large", 
+        "image":"pizza.png"
+    },
+     {
+        "name":"California Pizza",
+        "price" : 230,
+        "size":"large", 
+        "image":"pizza.png"
+    },
+      {
+        "name":"Detroit Pizza.",
+        "price" : 230,
+        "size":"large", 
+        "image":"pizza.png"
+    },
+      {
+        "name":"St. Louis Pizza",
+        "price" : 230,
+        "size":"large", 
+        "image":"pizza.png"
+    }
+]
