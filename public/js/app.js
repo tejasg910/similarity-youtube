@@ -8,12 +8,12 @@
 /***/ (() => {
 
 var addToCartButton = document.getElementById("add-to-cart-button");
-addToCartButton.addEventListener("click", function () {
+addToCartButton.addEventListener("click", function (id) {
   // Send a request to the server to add the item to the cart
   fetch("/add-to-cart", {
     method: "POST",
     body: JSON.stringify({
-      itemId: 123
+      _id: id
     }),
     headers: {
       "Content-Type": "application/json"

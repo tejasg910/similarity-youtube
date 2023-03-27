@@ -1,9 +1,9 @@
 const addToCartButton = document.getElementById("add-to-cart-button");
-addToCartButton.addEventListener("click", () => {
+addToCartButton.addEventListener("click", (id) => {
   // Send a request to the server to add the item to the cart
   fetch("/add-to-cart", {
     method: "POST",
-    body: JSON.stringify({ itemId: 123 }),
+    body: JSON.stringify({ _id: id }),
     headers: {
       "Content-Type": "application/json",
     },

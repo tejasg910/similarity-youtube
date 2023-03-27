@@ -16,126 +16,29 @@
 <section class="menu container mx-auto px-4 py-8">
     <h1 class="text-xl font-bold mb-8">All Pizzas </h1>
     <div class="grid grid-cols-4 gap-x-12 gap-y-16">
-        <div class="w-64">
-            <img class="h-40 mb-4 mx-auto" src="/img/pizza.png" alt="">
-            <div class="text-center">
-                <h2 class="mb-4 text-lg">Margerithas</h2>
-                <span class=" size py-1 px-4 rounded-full uppercase text-xs">
-                    small
-                </span>
-                <div class="flex items-center justify-around mt-6">
-                    <span class="font-bold text-lg text-green-600">₹250</span>
-                    <button class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold"><span>+</span>
-                        <span class="ml-4">Add</span>
-                    </button>
+
+        <% locals.pizzas.forEach((item, index)=>{ %>
+            <div class="w-64">
+                <img class="h-40 mb-4 mx-auto" src="/img/<%=item.image%>" alt="">
+                <div class="text-center">
+                    <h2 class="mb-4 text-lg">
+                        <%=item.name%>
+                    </h2>
+                    <span class=" size py-1 px-4 rounded-full uppercase text-xs">
+                        <%=item.size%>
+                    </span>
+                    <div class="flex items-center justify-around mt-6">
+                        <span class="font-bold text-lg text-green-600">₹<%=item.price%></span>
+                        <button onclick="addToCart( `<%=item._id%>`)"
+                            class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold"><span>+</span>
+                            <span class="ml-4">Add</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="w-64">
-            <img class="h-40 mb-4 mx-auto" src="/img/pizza.png" alt="">
-            <div class="text-center">
-                <h2 class="mb-4 text-lg">Margerithas</h2>
-                <span class=" size py-1 px-4 rounded-full uppercase text-xs">
-                    small
-                </span>
-                <div class="flex items-center justify-around mt-6">
-                    <span class="font-bold text-lg text-green-600">₹250</span>
-                    <button class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold"><span>+</span>
-                        <span class="ml-4">Add</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="w-64">
-            <img class="h-40 mb-4 mx-auto" src="/img/pizza.png" alt="">
-            <div class="text-center">
-                <h2 class="mb-4 text-lg">Margerithas</h2>
-                <span class=" size py-1 px-4 rounded-full uppercase text-xs">
-                    small
-                </span>
-                <div class="flex items-center justify-around mt-6">
-                    <span class="font-bold text-lg text-green-600">₹250</span>
-                    <button class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold"><span>+</span>
-                        <span class="ml-4">Add</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="w-64">
-            <img class="h-40 mb-4 mx-auto" src="/img/pizza.png" alt="">
-            <div class="text-center">
-                <h2 class="mb-4 text-lg">Margerithas</h2>
-                <span class=" size py-1 px-4 rounded-full uppercase text-xs">
-                    small
-                </span>
-                <div class="flex items-center justify-around mt-6">
-                    <span class="font-bold text-lg text-green-600">₹250</span>
-                    <button class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold"><span>+</span>
-                        <span class="ml-4">Add</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="w-64">
-            <img class="h-40 mb-4 mx-auto" src="/img/pizza.png" alt="">
-            <div class="text-center">
-                <h2 class="mb-4 text-lg">Margerithas</h2>
-                <span class=" size py-1 px-4 rounded-full uppercase text-xs">
-                    small
-                </span>
-                <div class="flex items-center justify-around mt-6">
-                    <span class="font-bold text-lg text-green-600">₹250</span>
-                    <button class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold"><span>+</span>
-                        <span class="ml-4">Add</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="w-64">
-            <img class="h-40 mb-4 mx-auto" src="/img/pizza.png" alt="">
-            <div class="text-center">
-                <h2 class="mb-4 text-lg">Margerithas</h2>
-                <span class=" size py-1 px-4 rounded-full uppercase text-xs">
-                    small
-                </span>
-                <div class="flex items-center justify-around mt-6">
-                    <span class="font-bold text-lg text-green-600">₹250</span>
-                    <button class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold"><span>+</span>
-                        <span class="ml-4">Add</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="w-64">
-            <img class="h-40 mb-4 mx-auto" src="/img/pizza.png" alt="">
-            <div class="text-center">
-                <h2 class="mb-4 text-lg">Margerithas</h2>
-                <span class=" size py-1 px-4 rounded-full uppercase text-xs">
-                    small
-                </span>
-                <div class="flex items-center justify-around mt-6">
-                    <span class="font-bold text-lg text-green-600">₹250</span>
-                    <button class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold"><span>+</span>
-                        <span class="ml-4">Add</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="w-64">
-            <img class="h-40 mb-4 mx-auto" src="/img/pizza.png" alt="">
-            <div class="text-center">
-                <h2 class="mb-4 text-lg">Margerithas</h2>
-                <span class=" size py-1 px-4 rounded-full uppercase text-xs">
-                    small
-                </span>
-                <div class="flex items-center justify-around mt-6">
-                    <span class="font-bold text-lg text-green-600">₹250</span>
-                    <button class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold"><span>+</span>
-                        <span class="ml-4">Add</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+
+
+            <% }) %>
 
     </div>
 </section>
@@ -155,5 +58,39 @@
             stopOnFocus: true, // Prevents dismissing of toast on hover
             onClick: function () { } // Callback after click
         }).showToast();
+    }
+</script>
+
+
+<script>
+    const addToCart = async (id) => {
+        const d = await fetch("/add-to-cart", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+
+                id,
+
+            })
+        })
+
+        const data = await d.json();
+
+
+        if (data.success) {
+            Toastify({
+                text: "Item added to Cart!!!",
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "center", // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
+        }
     }
 </script>

@@ -1,13 +1,29 @@
-const User = require("../../../modals/User");
 const bcrypt = require("bcrypt");
-const { toast } = require("react-toastify");
-const notifier = require("node-notifier");
+
+const jwt = require("jsonwebtoken");
+const User = require("../../models/User");
+
 const loginController = (req, res, next) => {
   res.render("auth/login");
 };
 
 const registerController = (req, res, next) => {
   res.render("auth/register");
+};
+
+const isAuthenticated = async (req, res, next) => {
+  const { token } = req.cookies;
+
+  if (token) {
+    const decoded = jwt.verify(token, "ffsjlfsdljlsfjljfsdljfd");
+
+    req.user = await User.findById(decoded.user);
+
+    next();
+  } else {
+    console.log("this is occured");
+    res.redirect("/login");
+  }
 };
 
 const registerUser = async (req, res, next) => {
@@ -36,7 +52,6 @@ const loginUser = async (req, res) => {
   const user = await User.findOne({ email: email });
 
   if (!user) {
-    notifier.notify("This email does not exists");
     res.render("auth/login");
     return;
   }
@@ -44,10 +59,14 @@ const loginUser = async (req, res) => {
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
-    notifier.notify("Invalid credentials");
     res.render("auth/login");
     return;
   }
+  var token = await jwt.sign({ user }, "ffsjlfsdljlsfjljfsdljfd");
+  res.cookie("token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+  });
 
   res.redirect("/?msg=success");
   return;
@@ -58,4 +77,5 @@ module.exports = {
   registerController,
   registerUser,
   loginUser,
+  isAuthenticated,
 };
