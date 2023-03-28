@@ -9,7 +9,10 @@ Create a npm project and install all dependencies
 crete expres server
 create home page (tailwind css)
 create cart page   done  
-    order summer
-    empty cart 
-create order controller
+    cart items done     
+[+] empty cart 
+create order controller pending 
+
+
+
 

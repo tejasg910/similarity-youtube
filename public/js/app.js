@@ -37,6 +37,10 @@ addToCartButton.addEventListener("click", function (id) {
   });
 });
 
+// window.addEventListener("load", function () {
+//   loginCheck(); // Call the function to check for the cookie and update the UI
+// });
+
 /***/ }),
 
 /***/ "./resource/scss/app.scss":

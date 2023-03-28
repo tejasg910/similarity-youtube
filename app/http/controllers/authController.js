@@ -7,8 +7,28 @@ const loginController = (req, res, next) => {
   res.render("auth/login");
 };
 
+const logOut = (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.render("auth/login", { success: true, message: "Log out successful" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 const registerController = (req, res, next) => {
   res.render("auth/register");
+};
+
+const checkLogin = (req, res) => {
+  const { token } = req.cookies;
+
+  if (token) {
+    res.status(200).json({ success: true, message: "Logged in" });
+    return;
+  } else {
+    res.status(409).json({ success: false, message: "Not Logged in" });
+    return;
+  }
 };
 
 const isAuthenticated = async (req, res, next) => {
@@ -78,4 +98,6 @@ module.exports = {
   registerUser,
   loginUser,
   isAuthenticated,
+  checkLogin,
+  logOut,
 };

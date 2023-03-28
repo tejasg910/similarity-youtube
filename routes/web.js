@@ -4,6 +4,8 @@ const {
   registerUser,
   loginUser,
   isAuthenticated,
+  checkLogin,
+  logOut,
 } = require("../app/http/controllers/authController");
 
 const path = require("path");
@@ -25,10 +27,11 @@ function initRoutes(app) {
   app.get("/cart", isAuthenticated, getCartItems);
 
   app.post("/login", loginUser);
-
+  app.get("/logout", logOut);
   app.post("/register", registerUser);
 
   app.post("/add-to-cart", isAuthenticated, addToCart);
+  app.get("/check-login", checkLogin);
 }
 
 module.exports = initRoutes;
