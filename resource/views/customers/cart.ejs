@@ -6,7 +6,7 @@
             <h1 class="font-bold text-2xl ml-4 ">Order summary</h1>
         </div>
 
-        <%locals.cart.forEach((item, index)=>{%>
+        <% locals.cart.forEach((item, index)=>{%>
             <div class="pizza-list">
                 <div class="flex items-center my-8">
                     <img class="w-24" src="/img/pizza.png" alt="">
@@ -28,34 +28,38 @@
                 </div>
             </div>
             <% }) %>
-                <hr class="border-b border-gray-400">
-                <div class="text-right  py-4">
-                    <div>
-                        <span class="text-lg font-bold">
-                            Total Amount:
-                        </span>
-                        <span class="amout text-2xl font-bold ml-2">
-                            ₹<%=total%>
-                        </span>
 
-                    </div>
-                    <div>
-                        <form class="mt-12">
-                            <input type="text" class="border border-gray-400 p-2 w-1/2 mb-4" placeholder="Phone Number">
-                            <input type="text" class="border border-gray-400 p-2 w-1/2" placeholder="Address">
-                            <div class="my-4">
+                <%if(cart.length>0){%>
+                    <a href="/clear-cart"
+                        class="px-6 py-2 rounded-full text-white font-bold  bg-orange-600 btn-primary">Clear Cart</a>
+                    <%}%>
+                        <hr class="border-b border-gray-400">
+                        <div class="text-right  py-4">
+                            <div>
+                                <span class="text-lg font-bold">
+                                    Total Amount:
+                                </span>
+                                <span class="amout text-2xl font-bold ml-2">
+                                    ₹<%=total%>
+                                </span>
 
-                                <button class="px-6 py-2 rounded-full text-white font-bold  bg-orange-600 btn-primary"
-                                    type="submit">Order
-                                    Now</button>
                             </div>
-                        </form>
-                    </div>
-                    <a href=""
-                        class="inline-block cursor-pointer btn-primary px-6 py-2 rounded-full text-white font-bold">Login
-                        to
-                        continue </a>
-                </div>
+                            <div>
+                                <form class="mt-12">
+                                    <input type="text" class="border border-gray-400 p-2 w-1/2 mb-4"
+                                        placeholder="Phone Number">
+                                    <input type="text" class="border border-gray-400 p-2 w-1/2" placeholder="Address">
+                                    <div class="my-4">
+
+                                        <button id="orderButton"
+                                            class="px-6 py-2 rounded-full text-white font-bold  bg-orange-600 btn-primary"
+                                            type="submit">Order
+                                            Now</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
 
     </div>
     <!-- <section class="empty-cart py-16 ">
@@ -70,3 +74,9 @@
     </section> -->
 
 </section>
+
+
+<script>
+
+
+</script>

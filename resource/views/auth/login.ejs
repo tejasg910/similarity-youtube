@@ -8,7 +8,7 @@
                 <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account
                 </h2>
             </div>
-            <form class="mt-8 space-y-6" action="/login" method="POST">
+            <form id="myForm" class="mt-8 space-y-6" action="/login" method="POST">
                 <input type="hidden" name="remember" value="true">
                 <div class="-space-y-px rounded-md shadow-sm">
                     <div>
@@ -24,6 +24,7 @@
                             placeholder="Password">
                     </div>
                 </div>
+
 
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
@@ -78,5 +79,7 @@
             stopOnFocus: true, // Prevents dismissing of toast on hover
             onClick: function () { } // Callback after click
         }).showToast();
+
+
     }
 </script>

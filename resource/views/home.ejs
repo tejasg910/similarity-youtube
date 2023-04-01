@@ -15,10 +15,10 @@
 </section>
 <section class="menu container mx-auto px-4 py-8">
     <h1 class="text-xl font-bold mb-8">All Pizzas </h1>
-    <div class="grid grid-cols-4 gap-x-12 gap-y-16">
+    <div class="grid xl:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-16 ">
 
         <% locals.pizzas.forEach((item, index)=>{ %>
-            <div class="w-64">
+            <div class="w-64 bg-slate-100 ounded overflow-hidden shadow-lg m-4 mx-auto p-2">
                 <img class="h-40 mb-4 mx-auto" src="/img/<%=item.image%>" alt="">
                 <div class="text-center">
                     <h2 class="mb-4 text-lg">
@@ -78,6 +78,7 @@
 
         const data = await d.json();
 
+        console.log(data)
 
         if (data.success) {
             Toastify({
@@ -91,6 +92,23 @@
                 stopOnFocus: true, // Prevents dismissing of toast on hover
                 onClick: function () { } // Callback after click
             }).showToast();
+            getCartItemCount()
+        }
+        else {
+            Toastify({
+                text: data.message,
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "center", // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
+
+
+
         }
     }
 </script>

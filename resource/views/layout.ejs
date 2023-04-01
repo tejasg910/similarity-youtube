@@ -22,21 +22,41 @@
 <script>
 
     window.onload = function () {
-        loginCheck();
+        if (window.location.pathname !== "/login")
+            loginCheck();
     };
     async function loginCheck() {
+
+
         const loginLink = document.getElementById('loginLink');
 
         const d = await fetch("/check-login");
         const data = await d.json();
 
         if (data.success) {
+
             loginLink.innerText = 'Logout';
             loginLink.setAttribute('href', '/logout');
+
+            getCartItemCount()
+
+
+
+
         } else {
             loginLink.innerText = 'Login';
             loginLink.setAttribute('href', '/login');
         }
+    }
+
+
+    async function getCartItemCount() {
+        const cartNumber = document.getElementById("cartNumber");
+        const cartItems = await fetch("/get-cart-length");
+        const cartData = await cartItems.json();
+        console.log(cartData)
+        cartNumber.innerText = cartData.itemCount
+
     }
 </script>
 
@@ -54,8 +74,11 @@
                 <li class="mx-2"><a id="loginLink" href="/login">Login</a></li>
 
 
-                <li class="mx-2"><a href="/cart" class="inline-block px-4 py-2 rounded-full"><img src="/img/cart.png"
-                            alt=""></a></li>
+                <li class="mx-2 "><a href="/cart" class="inline-block px-4  py-2  flex items-center  rounded-full">
+                        <span class="text-white pr-2 font-bold  " id="cartNumber">
+                            <%= typeof itemCount !=='undefined' ? itemCount : 0 %>
+                        </span>
+                        <img src="/img/cart.png" alt=""></a></li>
             </ul>
         </div>
     </nav>

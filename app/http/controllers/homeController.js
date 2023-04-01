@@ -17,8 +17,12 @@ const getAllItems = async (req, res, next) => {
 
 const addToCart = async (req, res, next) => {
   try {
+    if (!req.user) {
+      // User is not authenticated, return JSON response indicating that
+      return res.json({ authenticated: false });
+    }
     const { id } = req.body;
-    const { _id, total } = req.user;
+    const { _id } = req.user;
 
     const pizza = await Menu.findById(id);
     const userId = _id.toString();

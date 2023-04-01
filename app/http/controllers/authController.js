@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 
 const loginController = (req, res, next) => {
+  console.log("get login called");
   res.render("auth/login");
 };
 
@@ -33,16 +34,39 @@ const checkLogin = (req, res) => {
 
 const isAuthenticated = async (req, res, next) => {
   const { token } = req.cookies;
+  try {
+    if (token) {
+      const decoded = jwt.verify(token, "ffsjlfsdljlsfjljfsdljfd");
 
-  if (token) {
-    const decoded = jwt.verify(token, "ffsjlfsdljlsfjljfsdljfd");
+      req.user = await User.findById(decoded.user);
 
-    req.user = await User.findById(decoded.user);
-
-    next();
-  } else {
-    console.log("this is occured");
+      next();
+    } else {
+      res.redirect("/login");
+      return;
+    }
+  } catch (error) {
     res.redirect("/login");
+    return;
+  }
+};
+
+const checkAuthentication = async (req, res, next) => {
+  const { token } = req.cookies;
+  try {
+    if (token) {
+      const decoded = jwt.verify(token, "ffsjlfsdljlsfjljfsdljfd");
+
+      req.user = await User.findById(decoded.user);
+
+      next();
+    } else {
+      res.status(409).json({ success: false, message: "You are not login" });
+      return;
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: "something went wrong" });
+    return;
   }
 };
 
@@ -67,19 +91,20 @@ const registerUser = async (req, res, next) => {
 };
 
 const loginUser = async (req, res) => {
+  console.log("this login is called");
   const { email, password } = req.body;
 
   const user = await User.findOne({ email: email });
 
   if (!user) {
-    res.render("auth/login");
+    res.render("auth/login", { message: "No email found" });
     return;
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
-    res.render("auth/login");
+    res.render("auth/login", { message: "Invalid credentials" });
     return;
   }
   var token = await jwt.sign({ user }, "ffsjlfsdljlsfjljfsdljfd");
@@ -88,7 +113,7 @@ const loginUser = async (req, res) => {
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
   });
 
-  res.redirect("/?msg=success");
+  res.redirect("/");
   return;
 };
 
@@ -100,4 +125,5 @@ module.exports = {
   isAuthenticated,
   checkLogin,
   logOut,
+  checkAuthentication,
 };

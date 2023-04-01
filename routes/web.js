@@ -6,6 +6,7 @@ const {
   isAuthenticated,
   checkLogin,
   logOut,
+  checkAuthentication,
 } = require("../app/http/controllers/authController");
 
 const path = require("path");
@@ -15,7 +16,11 @@ const {
   getAllItems,
   addToCart,
 } = require("../app/http/controllers/homeController");
-const getCartItems = require("../app/http/controllers/customers/cartController");
+const {
+  getCartItems,
+  clearCart,
+  getCartLength,
+} = require("../app/http/controllers/customers/cartController");
 
 function initRoutes(app) {
   console.log(path.join(__dirname, "../resource/views"));
@@ -30,8 +35,10 @@ function initRoutes(app) {
   app.get("/logout", logOut);
   app.post("/register", registerUser);
 
-  app.post("/add-to-cart", isAuthenticated, addToCart);
+  app.post("/add-to-cart", checkAuthentication, addToCart);
+  app.get("/clear-cart", isAuthenticated, clearCart);
   app.get("/check-login", checkLogin);
+  app.get("/get-cart-length", isAuthenticated, getCartLength);
 }
 
 module.exports = initRoutes;
