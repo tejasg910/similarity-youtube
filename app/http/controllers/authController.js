@@ -2,9 +2,9 @@ const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
+const passport = require("passport");
 
 const loginController = (req, res, next) => {
-  console.log("get login called");
   res.render("auth/login");
 };
 
@@ -34,6 +34,7 @@ const checkLogin = (req, res) => {
 
 const isAuthenticated = async (req, res, next) => {
   const { token } = req.cookies;
+
   try {
     if (token) {
       const decoded = jwt.verify(token, "ffsjlfsdljlsfjljfsdljfd");
@@ -72,14 +73,19 @@ const checkAuthentication = async (req, res, next) => {
 
 const registerUser = async (req, res, next) => {
   const { username, email, password } = req.body;
-
+  if (!email || !password) {
+    return res.render("auth/register", {
+      message: req.flash("error", "All fields are required"),
+    });
+  }
   const user = await User.findOne({ email: email });
 
   if (user) {
-    res
-      .status(409)
-      .json({ success: false, message: "This email is already exists" });
-    return;
+    req.flash("error", "This email is already exists");
+
+    return res.render("auth/register", {
+      message: req.flash("error", "This email is already exists"),
+    });
   }
   const hashed = await bcrypt.hash(password, 10);
   const data = await User.create({ username, email, password: hashed });
@@ -90,8 +96,7 @@ const registerUser = async (req, res, next) => {
   res.redirect("/login");
 };
 
-const loginUser = async (req, res) => {
-  console.log("this login is called");
+const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email: email });
@@ -115,6 +120,27 @@ const loginUser = async (req, res) => {
 
   res.redirect("/");
   return;
+
+  // passport.authenticate("local", (err, user, info) => {
+  //   console.log(err, user, info);
+  //   if (err) {
+  //     req.flash("error", info.message);
+  //     return next(err);
+  //   }
+  //   if (!user) {
+  //     req.flash("error", info.message);
+  //     return res.redirect("/login");
+  //   }
+  //   req.logIn(user, (err) => {
+  //     if (err) {
+  //       req.flash("error", info.message);
+  //       return next(err);
+  //     }
+  //     console.log(user, "in the login in function");
+  //     res.redirect("google.com");
+  //     return;
+  //   });
+  // })(req, res, next);
 };
 
 module.exports = {

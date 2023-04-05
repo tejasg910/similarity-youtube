@@ -9,7 +9,6 @@ const getCartItems = async (req, res, next) => {
     return acc + cur.pizza.price * cur.quantity;
   }, 0);
 
-  console.log(cartItems);
   res.locals.itemCount = cartItems.length;
 
   res.render("customers/cart", {

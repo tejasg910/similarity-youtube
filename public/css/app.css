@@ -60,3 +60,7 @@ section.login a {
 section.login a:hover {
   color: #b23301;
 }
+section.login .google-signin {
+  color: white;
+  padding: 10px 10rem;
+}

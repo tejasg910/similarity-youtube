@@ -30,13 +30,17 @@
 
         const loginLink = document.getElementById('loginLink');
 
+        const registerLink = document.getElementById('registerLink');
         const d = await fetch("/check-login");
         const data = await d.json();
 
         if (data.success) {
 
             loginLink.innerText = 'Logout';
+            registerLink.innerText = 'Profile'
             loginLink.setAttribute('href', '/logout');
+            registerLink.setAttribute('href', '/profile');
+
 
             getCartItemCount()
 
@@ -54,7 +58,7 @@
         const cartNumber = document.getElementById("cartNumber");
         const cartItems = await fetch("/get-cart-length");
         const cartData = await cartItems.json();
-        console.log(cartData)
+
         cartNumber.innerText = cartData.itemCount
 
     }
@@ -69,7 +73,7 @@
             <ul class="flex items-center">
                 <li class="mx-2"><a href="/">Home</a></li>
                 <li class="mx-2"><a href="#">Offers</a></li>
-                <li class="mx-2"><a href="/register">Register</a></li>
+                <li class="mx-2"><a id="registerLink" href="/register">Register</a></li>
 
                 <li class="mx-2"><a id="loginLink" href="/login">Login</a></li>
 
