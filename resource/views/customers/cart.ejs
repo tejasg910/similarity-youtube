@@ -6,60 +6,77 @@
             <h1 class="font-bold text-2xl ml-4 ">Order summary</h1>
         </div>
 
-        <% locals.cart.forEach((item, index)=>{%>
-            <div class="pizza-list">
-                <div class="flex items-center my-8">
-                    <img class="w-24" src="/img/pizza.png" alt="">
-                    <div class="flex-1 ml-4 ">
-                        <h1>
-                            <%=item.pizza.name%>
-                        </h1>
-                        <span>
-                            <%=item.pizza.size%>
-                        </span>
-                    </div>
-                    <span class="flex-1">
-                        <%=item.quantity%>
-                    </span>
+        <%if(locals.cart.length===0){%>
 
-                    <span class=" font-bold text-lg">
-                        ₹<%=item.pizza.price%>
-                    </span>
-                </div>
+            <div class="flex flex-col text-center bg-white shadow-md rounded-md">
+                <h3 class="text-2xl font-bold">Oops!!!</h3>
+                <p class="py-4">No cart found. Please add the items to the cart. </p>
+                <a href="/" class="text-white bg-orange-600">Go to home</a>
             </div>
-            <% }) %>
 
-                <%if(cart.length>0){%>
-                    <a href="/clear-cart"
-                        class="px-6 py-2 rounded-full text-white font-bold  bg-orange-600 btn-primary">Clear Cart</a>
-                    <%}%>
-                        <hr class="border-b border-gray-400">
-                        <div class="text-right  py-4">
-                            <div>
-                                <span class="text-lg font-bold">
-                                    Total Amount:
+            <%}%>
+                <% locals.cart.forEach((item, index)=>{%>
+                    <div class="pizza-list">
+                        <div class="flex items-center my-8">
+                            <img class="w-24" src="/img/pizza.png" alt="">
+                            <div class="flex-1 ml-4 ">
+                                <h1>
+                                    <%=item.pizza.name%>
+                                </h1>
+                                <span>
+                                    <%=item.pizza.size%>
                                 </span>
-                                <span class="amout text-2xl font-bold ml-2">
-                                    ₹<%=total%>
-                                </span>
-
                             </div>
-                            <div>
-                                <form class="mt-12">
-                                    <input type="text" class="border border-gray-400 p-2 w-1/2 mb-4"
-                                        placeholder="Phone Number">
-                                    <input type="text" class="border border-gray-400 p-2 w-1/2" placeholder="Address">
-                                    <div class="my-4">
+                            <span class="flex-1">
+                                <%=item.quantity%>
+                            </span>
 
-                                        <button id="orderButton"
-                                            class="px-6 py-2 rounded-full text-white font-bold  bg-orange-600 btn-primary"
-                                            type="submit">Order
-                                            Now</button>
-                                    </div>
-                                </form>
-                            </div>
-
+                            <span class=" font-bold text-lg">
+                                ₹<%=item.pizza.price%>
+                            </span>
                         </div>
+                    </div>
+                    <% }) %>
+
+                        <%if(cart.length>0){%>
+                            <a href="/clear-cart"
+                                class="px-6 py-2 rounded-full text-white font-bold  bg-orange-600 btn-primary">Clear
+                                Cart</a>
+                            <%}%>
+                                <hr class="border-b border-gray-400">
+                                <div class="text-right  py-4">
+                                    <div>
+                                        <span class="text-lg font-bold">
+                                            Total Amount:
+                                        </span>
+                                        <span class="amout text-2xl font-bold ml-2">
+                                            ₹<%=total%>
+                                        </span>
+
+                                    </div>
+                                    <div>
+                                        <form class="mt-12 w-full" action="/order" method="POST">
+                                            <%if(messages.error){%>
+                                                <div class="text-red-500 text-sm p-2 text-right mb-4">
+                                                    <%=messages.error[0]%>
+                                                </div>
+                                                <%}%>
+                                                    <input name="mobile" type="text"
+                                                        class="border border-gray-400 p-2 w-1/2 mb-4"
+                                                        placeholder="Phone Number">
+                                                    <input name="address" type="text"
+                                                        class="border border-gray-400 p-2 w-1/2" placeholder="Address">
+                                                    <div class="my-4">
+
+                                                        <button id="orderButton"
+                                                            class="px-6 py-2 rounded-full text-white font-bold  bg-orange-600 btn-primary"
+                                                            type="submit">Order
+                                                            Now</button>
+                                                    </div>
+                                        </form>
+                                    </div>
+
+                                </div>
 
     </div>
     <!-- <section class="empty-cart py-16 ">

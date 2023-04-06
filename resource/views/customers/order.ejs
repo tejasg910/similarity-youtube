@@ -1,0 +1,58 @@
+<section class="orders light-section">
+    <div class="container  px-4 mx-auto pt-12">
+        <h1 class="font-bold text-lg mb-4 ">All Orders</h1>
+        <div id="success-alert" class="flex items-center bg-green-500 text-white text-sm font-bold px-4 py-3"
+            role="alert">
+            order placed successfully
+        </div>
+
+        <table class="w-full table-auto bg-white">
+            <thead class="border">
+                <tr class="border">
+                    <th class="px-4 border py-2 text-left">
+                        Orders
+                    </th>
+                    <th class="px-4  border py-2 text-left">
+                        Mobile
+                    </th>
+                    <th class="px-4  border py-2 text-left">
+                        Address
+                    </th>
+                    <th class="px-4  border py-2 text-left">
+                        Time
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <%if(orders.length){%>
+
+                    <% orders.forEach((item)=>{%>
+
+
+                        <tr>
+                            <td class="border px-4 py-2">
+                                <a href="#" class="link">
+                                    <%= item._id%>
+                                </a>
+                            </td>
+                            <td class="border px-4 py-2">
+                                <%= item.mobile%>
+                            </td>
+                            <td class="border px-4 py-2">
+                                <%= item.address%>
+                            </td>
+                            <td class="border px-4 py-2">
+                                <%= moment(item.createdAt).format('hh:mm A')%>
+                            </td>
+                        </tr>
+                        <% })%>
+                            <%}else{%>
+                                <tr>
+                                    <td class="px-4">No orders found</td>
+                                </tr>
+                                <%}%>
+            </tbody>
+        </table>
+    </div>
+</section>

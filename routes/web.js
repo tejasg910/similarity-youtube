@@ -26,6 +26,10 @@ const {
   getProfile,
 } = require("../app/http/controllers/profile/profileController");
 const { guest } = require("../app/http/middlewares/gues");
+const {
+  placeOrder,
+  getOrderPage,
+} = require("../app/http/controllers/customers/orderContoller");
 
 function initRoutes(app) {
   app.set("views", path.join(__dirname, "../resource/views"));
@@ -44,6 +48,9 @@ function initRoutes(app) {
   app.get("/check-login", checkLogin);
   app.get("/get-cart-length", isAuthenticated, getCartLength);
   app.get("/profile", isAuthenticated, getProfile);
+  app.post("/order", isAuthenticated, placeOrder);
+  app.get("/order", isAuthenticated, getOrderPage);
+
   // Route to initiate Google authentication
   app.get(
     "/auth/google",

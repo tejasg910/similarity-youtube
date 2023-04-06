@@ -64,3 +64,7 @@ section.login .google-signin {
   color: white;
   padding: 10px 10rem;
 }
+
+a.link {
+  color: #fe5f1e;
+}
