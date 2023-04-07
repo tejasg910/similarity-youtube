@@ -1,11 +1,14 @@
 const Menu = require("../../models/menu");
 const User = require("../../models/User");
+const { isAuthenticated } = require("./authController");
 
 const homePage = async (req, res, next) => {
+  // const { token } = req.cookies;
   try {
     const data = await Menu.find({});
+    let user = req.session.user ? req.session.user : null;
 
-    res.render("home", { pizzas: data });
+    res.render("home", { pizzas: data, user });
   } catch (error) {
     res.render("home", { success: false, pizzas: "No data found" });
   }

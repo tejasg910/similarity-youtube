@@ -1,6 +1,8 @@
 const Order = require("../../../models/Order");
 const User = require("../../../models/User");
 const moment = require("moment");
+const Menu = require("../../../models/menu");
+
 const placeOrder = async (req, res, next) => {
   try {
     const { mobile, address } = req.body;
@@ -22,12 +24,12 @@ const placeOrder = async (req, res, next) => {
       mobile,
       address,
       customerId: req.user._id,
-      items: cart,
+      items: [...cart],
     });
     order
       .save()
       .then(async (result) => {
-        data.cart.length = 0;
+        data.cart.splice(0, data.cart.length);
         await data.save();
         res.redirect("/order");
       })
@@ -51,10 +53,16 @@ const getOrderPage = async (req, res, next) => {
   const customerId = req.user._id;
 
   try {
-    const orders = await Order.find({ customerId: customerId });
-
+    const orders = await Order.find({ customerId: customerId })
+      .populate({
+        path: "items.pizza",
+        model: Menu,
+      })
+      .exec();
+    orders.forEach((order) => {});
     res.render("customers/order", { orders: orders, moment: moment });
   } catch (error) {
+    console.log(error.message);
     res.redirect("/");
   }
 };
