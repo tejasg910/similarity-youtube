@@ -11,6 +11,7 @@ const loginController = (req, res, next) => {
 const logOut = (req, res) => {
   try {
     res.clearCookie("token");
+    req.session.user = null;
     res.render("auth/login", { success: true, message: "Log out successful" });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

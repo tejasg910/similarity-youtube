@@ -28,6 +28,11 @@ const usreSchema = new mongoose.Schema(
         },
       },
     ],
+
+    role: {
+      type: String,
+      default: "customer",
+    },
   },
   { timestamps: true }
 );

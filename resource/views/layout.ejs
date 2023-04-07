@@ -67,12 +67,15 @@
 <body>
     <nav class="container mx-auto flex justify-between items-center py-4">
         <div>
-            <img src="img/logo.png" alt="logo">
+            <a href="/">
+                <img src="img/logo.png" alt="logo">
+
+            </a>
         </div>
         <div>
             <ul class="flex items-center">
                 <%if(user){%>
-                    <li class="mx-2"><a href="/">Welcome back <%= user.username%></a></li>
+                    <li class="mx-2"><a href="/profile">Welcome Back <%= user.username.toUpperCase()%></a></li>
                     <%}%>
                         <li class="mx-2"><a href="/">Home</a></li>
                         <li class="mx-2"><a href="#">Offers</a></li>

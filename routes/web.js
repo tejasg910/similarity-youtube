@@ -40,7 +40,7 @@ function initRoutes(app) {
   app.get("/cart", isAuthenticated, getCartItems);
 
   app.post("/login", loginUser);
-  app.get("/logout", logOut);
+  app.get("/logout", isAuthenticated, logOut);
   app.post("/register", registerUser);
 
   app.post("/add-to-cart", checkAuthentication, addToCart);

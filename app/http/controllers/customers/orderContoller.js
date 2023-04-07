@@ -30,6 +30,7 @@ const placeOrder = async (req, res, next) => {
       .save()
       .then(async (result) => {
         data.cart.splice(0, data.cart.length);
+        req.flash("notify", "Order placed successfully");
         await data.save();
         res.redirect("/order");
       })
@@ -53,7 +54,9 @@ const getOrderPage = async (req, res, next) => {
   const customerId = req.user._id;
 
   try {
-    const orders = await Order.find({ customerId: customerId })
+    const orders = await Order.find({ customerId: customerId }, null, {
+      sort: { createdAt: -1 },
+    })
       .populate({
         path: "items.pizza",
         model: Menu,
