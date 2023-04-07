@@ -7,11 +7,16 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    items: {
-      type: Object,
-      unique: true,
-      required: true,
-    },
+    items: [
+      {
+        pizza: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Pizza",
+          required: true,
+        },
+        quantity: { type: Number, required: true },
+      },
+    ],
     mobile: {
       type: String,
       required: true,

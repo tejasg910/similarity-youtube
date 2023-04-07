@@ -71,18 +71,22 @@
         </div>
         <div>
             <ul class="flex items-center">
-                <li class="mx-2"><a href="/">Home</a></li>
-                <li class="mx-2"><a href="#">Offers</a></li>
-                <li class="mx-2"><a id="registerLink" href="/register">Register</a></li>
+                <%if(user){%>
+                    <li class="mx-2"><a href="/">Welcome back <%= user.username%></a></li>
+                    <%}%>
+                        <li class="mx-2"><a href="/">Home</a></li>
+                        <li class="mx-2"><a href="#">Offers</a></li>
+                        <li class="mx-2"><a id="registerLink" href="/register">Register</a></li>
 
-                <li class="mx-2"><a id="loginLink" href="/login">Login</a></li>
+                        <li class="mx-2"><a id="loginLink" href="/login">Login</a></li>
 
 
-                <li class="mx-2 "><a href="/cart" class="inline-block px-4  py-2  flex items-center  rounded-full">
-                        <span class="text-white pr-2 font-bold  " id="cartNumber">
-                            <%= typeof itemCount !=='undefined' ? itemCount : 0 %>
-                        </span>
-                        <img src="/img/cart.png" alt=""></a></li>
+                        <li class="mx-2 "><a href="/cart"
+                                class="inline-block px-4  py-2  flex items-center  rounded-full">
+                                <span class="text-white pr-2 font-bold  " id="cartNumber">
+                                    <%= typeof itemCount !=='undefined' ? itemCount : 0 %>
+                                </span>
+                                <img src="/img/cart.png" alt=""></a></li>
             </ul>
         </div>
     </nav>

@@ -98,7 +98,6 @@ const registerUser = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
-
   const user = await User.findOne({ email: email });
 
   if (!user) {
@@ -112,6 +111,7 @@ const loginUser = async (req, res, next) => {
     res.render("auth/login", { message: "Invalid credentials" });
     return;
   }
+  req.session.user = user;
   var token = await jwt.sign({ user }, "ffsjlfsdljlsfjljfsdljfd");
   res.cookie("token", token, {
     httpOnly: true,
