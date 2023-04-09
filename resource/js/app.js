@@ -38,3 +38,6 @@
 // window.addEventListener("load", function () {
 //   loginCheck(); // Call the function to check for the cookie and update the UI
 // });
+
+import { initAdmin } from "./admin";
+initAdmin();
