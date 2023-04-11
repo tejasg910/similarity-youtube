@@ -16,8 +16,16 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const init = require("./app/config/passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(cookieParser());
+
+// Event emitter
+const EventEmitter = require("events");
+const eventEmitter = new EventEmitter();
+app.set("eventEmitter", eventEmitter);
+//session config
+
 app.use(
   session({
     secret: "my-secret-key",
@@ -52,6 +60,26 @@ app.use((req, res, next) => {
 });
 initRoutes(app);
 
-app.listen(8000, () => {
+const server = app.listen(8000, () => {
   console.log("server started on port ", PORT);
+});
+
+//socket connection
+
+const io = require("socket.io")(server);
+io.on("connection", (socket) => {
+  socket.on("join", (orderId) => {
+    //join event and socket join function are different do not get confused
+
+    socket.join(orderId);
+  });
+  //we are creating the private rooms for that we need the unique clients and the name so we will get it through the client
+});
+
+eventEmitter.on("orderUpdated", (data) => {
+  io.to(`order_${data.id}`).emit("orderUpdated", data);
+});
+
+eventEmitter.on("orderPlaced", (data) => {
+  io.to("adminRoom").emit("orderPlaced", data);
 });

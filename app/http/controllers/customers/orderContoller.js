@@ -30,11 +30,28 @@ const placeOrder = async (req, res, next) => {
       .save()
       .then(async (result) => {
         data.cart.splice(0, data.cart.length);
-        req.flash("notify", "Order placed successfully");
+        result = await Order.findOne({ _id: result._id })
+          .populate({
+            path: "customerId",
+            select: "-password",
+          })
+          .populate({
+            path: "items.pizza",
+          })
+          .exec();
+
+        req.flash("message", "Order placed successfully");
         await data.save();
-        res.redirect("/order");
+        //emit
+        console.log(result);
+        const eventEmitter = req.app.get("eventEmitter");
+
+        eventEmitter.emit("orderPlaced", result);
+        console.log("here we go ");
+        return res.redirect("/order");
       })
       .catch((err) => {
+        console.log(err);
         return res.render("customers/cart", {
           message: "Something went wrong!!!",
           cart: req.user.cart,

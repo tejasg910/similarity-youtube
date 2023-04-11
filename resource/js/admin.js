@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 import moment from "moment";
 
-export function initAdmin() {
+export function initAdmin(socket) {
   let orders = [];
   let markup;
 
@@ -12,18 +12,17 @@ export function initAdmin() {
       },
     })
     .then(function (res) {
-      const orderTableBody = document.getElementById("orderTableBody");
-      console.log(res.data);
       orders = res.data;
+
       markup = generateMarkup(orders);
-      if (orderTableBody) {
-        console.log("in the html");
+      setTimeout(() => {
+        const orderTableBody = document.getElementById("orderTableBody");
         orderTableBody.innerHTML = markup;
-      }
+      }, 0);
     })
     .catch(function (err) {
       // handle error here
-      console.log(err);
+      console.log(err.message);
     });
 
   function renderItems(items) {
@@ -103,4 +102,23 @@ export function initAdmin() {
       })
       .join("");
   }
+
+  socket.on("orderPlaced", (data) => {
+    Toastify({
+      text: "New order placed",
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top", // `top` or `bottom`
+      position: "center", // `left`, `center` or `right`
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      onClick: function () {}, // Callback after click
+    }).showToast();
+    console.log(data);
+    orders.unshift(data);
+    const orderTableBody = document.getElementById("orderTableBody");
+    orderTableBody.innerHTML = "";
+    orderTableBody.innerHTML = generateMarkup(orders);
+  });
 }

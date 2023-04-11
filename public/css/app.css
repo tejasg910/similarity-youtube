@@ -68,3 +68,75 @@ section.login .google-signin {
 a.link {
   color: #fe5f1e;
 }
+
+section.status {
+  background: #e5e1e1;
+  min-height: calc(100vh - 73px);
+}
+section.status .status-box {
+  padding: 60px 0 0 0;
+}
+section.status .status-box ul li span {
+  position: relative;
+  padding-left: 20px;
+}
+section.status .status-box ul li span::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 35%;
+  background: #232323;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 1px 10px #e5e1e1;
+}
+
+.status-box ul img {
+  width: 50px;
+  height: 50px;
+}
+
+.status-box ul li {
+  position: relative;
+}
+
+.status-box ul .li-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 140px;
+  width: 2px;
+  height: 100%;
+  background: #232323;
+  margin-top: 10px;
+}
+
+.status-box ul li.status_completed span {
+  color: #ccc;
+}
+.status-box ul li.status_completed span::after {
+  background: #ccc !important;
+}
+
+.status-box ul li.status_completed::before {
+  background: #ccc;
+}
+
+.status-box ul li.current_status span {
+  color: #fe5f1e;
+}
+.status-box ul li.current_status span::after {
+  background: #fe5f1e !important;
+}
+
+.status-box ul li.current_status::before {
+  background: #fe5f1e;
+}
+
+.status-box ul li small {
+  margin-left: 3rem;
+  font-size: 10px;
+  margin-top: 5px;
+}
