@@ -1,7 +1,7 @@
 <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
 <script src="https://unpkg.com/alpinejs" defer></script>
 <section class="orders light-section">
-    <div class="container  px-4 mx-auto pt-12">
+    <div class="container  px-4 overflow-x-auto mx-auto pt-12">
         <h1 class="font-bold text-lg mb-4 ">All Orders</h1>
         <%if(messages.notify){%>
 
@@ -10,7 +10,7 @@
                 <%=messages.notify%>
             </div>
             <%}%>
-                <table class="w-full table-auto bg-white">
+                <table class="w-full  table-auto bg-white">
                     <thead class="border">
                         <tr class="border">
                             <th class="px-4 border py-2 text-left">

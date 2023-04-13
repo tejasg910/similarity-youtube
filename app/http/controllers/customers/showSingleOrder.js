@@ -10,7 +10,6 @@ const showSingleOrder = async (req, res, next) => {
       return res.redirect("/");
     }
   } catch (error) {
-    console.log(error.message);
     req.flash("error", "something went wrong!!!");
     return res.redirect("/");
   }

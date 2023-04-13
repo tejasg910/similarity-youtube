@@ -76,16 +76,17 @@
         <div>
             <ul class="flex items-center">
                 <%if(user){%>
-                    <li class="mx-2"><a href="/profile">Welcome Back <%= user.username.toUpperCase()%></a></li>
+                    <li class="hidden md:block mx-1 md:mx-2"><a href="/profile">Welcome Back <%=
+                                user.username.toUpperCase()%></a></li>
                     <%}%>
-                        <li class="mx-2"><a href="/">Home</a></li>
-                        <li class="mx-2"><a href="#">Offers</a></li>
-                        <li class="mx-2"><a id="registerLink" href="/register">Register</a></li>
+                        <li class="mx-1 md:mx-2"><a href="/">Home</a></li>
+                        <li class="md:mx-2"><a href="/order">Orders</a></li>
+                        <li class="mx-1 md:mx-2"><a id="registerLink" href="/register">Register</a></li>
 
-                        <li class="mx-2"><a id="loginLink" href="/login">Login</a></li>
+                        <li class=" mx-1 md:mx-2"><a id="loginLink" href="/login">Login</a></li>
 
 
-                        <li class="mx-2 "><a href="/cart"
+                        <li class="mx-1  md:mx-2 "><a href="/cart"
                                 class="inline-block px-4  py-2  flex items-center  rounded-full">
                                 <span class="text-white pr-2 font-bold  " id="cartNumber">
                                     <%= typeof itemCount !=='undefined' ? itemCount : 0 %>

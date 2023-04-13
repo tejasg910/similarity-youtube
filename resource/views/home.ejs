@@ -1,14 +1,14 @@
 <section class="hero py-16">
-    <div class="container mx-auto flex items-center justify-between">
+    <div class="container mx-auto flex-col flex md:flex-row items-center justify-between">
 
-        <div class="w-1/2">
+        <div class="w-full md:w-1/2">
             <h6 class="text-lg">
                 <em>Are you hugry?</em>
             </h6>
             <h1 class="text-6xl font-bold">Don't wait !</h1>
             <button class="px-5 py-2 rounded-full text-white font-bold mt-4 btn-primary">Order Now </button>
         </div>
-        <div class="w-1/2">
+        <div class="mt-4 md:mt-0 w-full md:w-1/2 mx-auto">
             <img src="/img/hero-pizza.png" alt="">
         </div>
     </div>
@@ -18,7 +18,7 @@
     <div class="grid xl:grid-cols-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-16 ">
 
         <% locals.pizzas.forEach((item, index)=>{ %>
-            <div class="w-64 bg-slate-100 ounded overflow-hidden shadow-lg m-4 mx-auto p-2">
+            <div class="w-64 bg-slate-100 ounded overflow-hidden shadow-lg m-4  mx-auto p-2">
                 <img class="h-40 mb-4 mx-auto" src="/img/<%=item.image%>" alt="">
                 <div class="text-center">
                     <h2 class="mb-4 text-lg">
