@@ -201,6 +201,9 @@ socket.on("orderUpdated", function (data) {
 });
 //join the room and provide the id
 
+var message = "<%= JSON.stringify(message) %>";
+console.log(message);
+
 /***/ }),
 
 /***/ "./node_modules/base64-js/index.js":

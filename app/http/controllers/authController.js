@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt");
+const isemail = require("isemail");
 
+const axios = require("axios");
+const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 const passport = require("passport");
@@ -144,6 +147,118 @@ const loginUser = async (req, res, next) => {
   // })(req, res, next);
 };
 
+const forGotPassword = async (req, res, next) => {
+  res.render("auth/forgotpassword");
+};
+
+async function sendVerificationEmail(req, res, next) {
+  const { email } = req.body;
+  console.log(email);
+  const user = await User.findOne({ email });
+  if (!user) {
+    req.flash("message", "No user found with this email");
+    return res.render("auth/forgotpassword", {
+      message: "No account found with email",
+    });
+  }
+  try {
+    const valid = isemail.validate(email);
+    console.log(valid); // true
+
+    if (valid) {
+      const otp = Math.floor(1000 + Math.random() * 9000);
+      const transport = nodemailer.createTransport({
+        host: "smtp-relay.sendinblue.com",
+        port: 587,
+        auth: {
+          user: process.env.SENDINGBLUESMTPUSER,
+          pass: process.env.SENDINGBLUESMTPPASSWORD,
+        },
+      });
+
+      const mailOptions = {
+        from: "tejasgiri910@gmail.com",
+        to: email,
+        subject: "Email Subject",
+        html: `<p>Dear ,
+
+Thank you for requesting a password reset. Your OTP for verification is: ${otp}. Please use this code to reset your password within the next 10 minutes. If you did not request this password reset, please ignore this email and contact our support team immediately.
+
+Best regards,
+Tejas Giri</p>`,
+      };
+
+      transport.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          req.session.email = email;
+          console.log("Email sent: " + info.response);
+          req.flash("message", "Email sent successfully");
+
+          req.session.otp = otp;
+          res.render("auth/forgotpassword", {
+            message: "OTP sent successfully! Please check your email!",
+          });
+        }
+      });
+    } else {
+      req.flash("message", "This is not valid email");
+      res.redirect("/forgot");
+    }
+  } catch (error) {
+    res.redirect("/forgot");
+    console.log(error.message);
+  }
+}
+
+const veriftyOtp = async (req, res, next) => {
+  const { otpInput } = req.body;
+  console.log(otpInput, req.session.otp);
+  try {
+    if (otpInput === req.session.otp.toString()) {
+      req.session.otp = null;
+      req.session.isAuthorized = true;
+
+      console.log("otp is verfied");
+      res.render("auth/changepassword", { message: "OTP is verified" });
+    } else {
+      req.flash("message", "OTP not matched");
+      res.render("auth/forgotpassword", { message: "OTP is not matched" });
+    }
+  } catch (error) {
+    res.render("auth/forgotpassword", { message: "Something went wrong" });
+  }
+};
+
+const changePassword = async (req, res, next) => {
+  const { password, cpassword } = req.body;
+  console.log(password, cpassword);
+  if (password !== cpassword) {
+    req.flash("message", "password is not matching");
+    return res.render("auth/changepassword");
+  }
+
+  if (req.session.isAuthorized && req.session.email) {
+    req.session.isAuthorized = false;
+    const hashed = await bcrypt.hash(password, 10);
+
+    console.log(hashed);
+    await User.findOneAndUpdate(
+      { email: req.session.email },
+      { password: hashed }
+    );
+
+    req.flash(
+      "message",
+      "Password changed successfully! Now enter new password"
+    );
+    return res.redirect("/login");
+  } else {
+    return res.render("auth/changepassword");
+  }
+};
+
 module.exports = {
   loginController,
   registerController,
@@ -153,4 +268,8 @@ module.exports = {
   checkLogin,
   logOut,
   checkAuthentication,
+  forGotPassword,
+  sendVerificationEmail,
+  veriftyOtp,
+  changePassword,
 };

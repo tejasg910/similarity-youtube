@@ -7,6 +7,10 @@ const {
   checkLogin,
   logOut,
   checkAuthentication,
+  forGotPassword,
+  sendVerificationEmail,
+  veriftyOtp,
+  changePassword,
 } = require("../app/http/controllers/authController");
 const passport = require("passport");
 const path = require("path");
@@ -56,6 +60,11 @@ function initRoutes(app) {
   app.post("/login", loginUser);
   app.get("/logout", isAuthenticated, logOut);
   app.post("/register", registerUser);
+  app.get("/forgot", forGotPassword);
+  app.post("/send-otp", sendVerificationEmail);
+  app.post("/verify-otp", veriftyOtp);
+
+  app.post("/change-password", changePassword);
 
   //customer routes
   app.post("/add-to-cart", checkAuthentication, addToCart);

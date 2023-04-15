@@ -33,6 +33,10 @@
                         <a href="/register" class="font-medium text-orange-600 hover:text-orange-500">Don't have
                             account?</a>
                     </div>
+                    <div class="text-sm">
+                        <a href="/forgot" class="font-medium text-orange-600 hover:text-orange-500">Forgot
+                            Password?</a>
+                    </div>
                 </div>
 
                 <div class="d-flex flex-col items-center justify-center">
@@ -62,7 +66,7 @@
 
 <script>
     // Access the message variable passed from server-side
-    const message = '<%= locals.message %>';
+    const message = '<%=locals.message %>';
 
     // Use Tosastify JS to display the message
     if (message) {
@@ -82,7 +86,19 @@
 
 
     }
-
+    if ("<%=messages.message%>") {
+        Toastify({
+            text: "<%=messages.message%>",
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            onClick: function () { } // Callback after click
+        }).showToast();
+    }
 
 
 </script>

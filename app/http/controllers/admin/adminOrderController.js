@@ -19,7 +19,6 @@ const getAdminOrders = async (req, res) => {
       return res.render("admin/orders", { orders, moment });
     }
   } catch (error) {
-    console.log(error.message);
     res.redirect("/");
   }
 };

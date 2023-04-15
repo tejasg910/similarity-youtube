@@ -43,15 +43,14 @@ const placeOrder = async (req, res, next) => {
         req.flash("message", "Order placed successfully");
         await data.save();
         //emit
-        console.log(result);
+
         const eventEmitter = req.app.get("eventEmitter");
 
         eventEmitter.emit("orderPlaced", result);
-        console.log("here we go ");
+
         return res.redirect("/order");
       })
       .catch((err) => {
-        console.log(err);
         return res.render("customers/cart", {
           message: "Something went wrong!!!",
           cart: req.user.cart,
@@ -82,7 +81,6 @@ const getOrderPage = async (req, res, next) => {
     orders.forEach((order) => {});
     res.render("customers/order", { orders: orders, moment: moment });
   } catch (error) {
-    console.log(error.message);
     res.redirect("/");
   }
 };

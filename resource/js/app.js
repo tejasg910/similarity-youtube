@@ -120,3 +120,7 @@ socket.on("orderUpdated", (data) => {
   console.log(data);
 });
 //join the room and provide the id
+
+const message = "<%= JSON.stringify(message) %>";
+
+console.log(message);

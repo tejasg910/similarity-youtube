@@ -1,7 +1,6 @@
 const Order = require("../../../models/Order");
 
 const showSingleOrder = async (req, res, next) => {
-  console.log("came in the show single page");
   try {
     const order = await Order.findById(req.params.id);
     if (order.customerId.toString() === req.user._id.toString()) {
