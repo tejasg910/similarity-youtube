@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/tejasg910/similarity-youtube#readme",
   "dependencies": {
+    "@stripe/stripe-js": "^1.52.1",
     "axios": "^1.3.5",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
@@ -43,6 +44,7 @@
     "react-toastify": "^9.1.2",
     "sib-api-v3-sdk": "^8.5.0",
     "socket.io": "^4.6.1",
+    "stripe": "^12.1.1",
     "toastify-js": "^1.12.0",
     "tw-elements": "^1.0.0-beta1"
   },

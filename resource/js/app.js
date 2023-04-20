@@ -41,6 +41,9 @@
 
 import moment from "moment";
 import { initAdmin } from "./admin";
+import axios from "axios";
+import { showNotification } from "./showNotification";
+import { initStripe } from "./stripe";
 
 let socket = io();
 initAdmin(socket);
@@ -75,7 +78,7 @@ function updateStatus(order) {
       if (!status.contains(getTimeElement)) {
         status.appendChild(timeElement);
       }
-      console.log(document.body.contains(getTimeElement));
+
       if (status.nextElementSibling) {
         status.nextElementSibling.classList.add("current_status");
       }
@@ -84,6 +87,40 @@ function updateStatus(order) {
 }
 
 updateStatus(order);
+
+initStripe();
+
+//ajax call
+const paymentForm = document.querySelector("#paymentform");
+if (paymentForm) {
+  paymentForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let formData = new FormData(paymentForm);
+    let formObject = {};
+    for (let [key, value] of formData.entries()) {
+      formObject[key] = value;
+    }
+    console.log(formObject);
+
+    axios
+      .post("/order", formObject)
+      .then((res) => {
+        console.log(res);
+        if (res.data.success) {
+          showNotification(res.data.message);
+          setTimeout(() => {
+            window.location.href = "/order";
+          }, 1000);
+        } else {
+          showNotification("something went wrong");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        showNotification(err.message);
+      });
+  });
+}
 
 //socket
 
@@ -96,13 +133,11 @@ let adminAreaPath = window.location.pathname;
 if (adminAreaPath.includes("admin")) {
   socket.emit("join", "adminRoom");
 }
-console.log(adminAreaPath);
 
 socket.on("orderUpdated", (data) => {
   const updatedOrder = { ...order };
   updatedOrder.updatedAt = moment().format();
   updatedOrder.status = data.status;
-  console.log(data);
 
   updateStatus(updatedOrder);
   Toastify({
@@ -117,10 +152,7 @@ socket.on("orderUpdated", (data) => {
     stopOnFocus: true, // Prevents dismissing of toast on hover
     onClick: function () {}, // Callback after click
   }).showToast();
-  console.log(data);
 });
 //join the room and provide the id
 
 const message = "<%= JSON.stringify(message) %>";
-
-console.log(message);

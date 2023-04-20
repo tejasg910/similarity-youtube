@@ -17,12 +17,13 @@ export function initAdmin(socket) {
       markup = generateMarkup(orders);
       setTimeout(() => {
         const orderTableBody = document.getElementById("orderTableBody");
-        orderTableBody.innerHTML = markup;
+        if (orderTableBody !== null) {
+          orderTableBody.innerHTML = markup;
+        }
       }, 0);
     })
     .catch(function (err) {
       // handle error here
-      console.log(err.message);
     });
 
   function renderItems(items) {
@@ -115,7 +116,7 @@ export function initAdmin(socket) {
       stopOnFocus: true, // Prevents dismissing of toast on hover
       onClick: function () {}, // Callback after click
     }).showToast();
-    console.log(data);
+
     orders.unshift(data);
     const orderTableBody = document.getElementById("orderTableBody");
     orderTableBody.innerHTML = "";

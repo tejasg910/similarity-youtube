@@ -40,15 +40,15 @@ const placeOrder = async (req, res, next) => {
           })
           .exec();
 
-        req.flash("message", "Order placed successfully");
+        // req.flash("message", "Order placed successfully");
         await data.save();
         //emit
 
         const eventEmitter = req.app.get("eventEmitter");
 
         eventEmitter.emit("orderPlaced", result);
-
-        return res.redirect("/order");
+        res.json({ success: true, message: "Order placed successfully" });
+        // return res.redirect("/order");
       })
       .catch((err) => {
         return res.render("customers/cart", {

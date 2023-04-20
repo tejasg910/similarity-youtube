@@ -55,18 +55,42 @@
 
                                     </div>
                                     <div>
-                                        <form class="mt-12 w-full" action="/order" method="POST">
+                                        <form id="paymentform" class="mt-12 w-full flex flex-col items-end"
+                                            action="/order" method="POST">
                                             <%if(messages.error){%>
                                                 <div class="text-red-500 text-sm p-2 text-right mb-4">
                                                     <%=messages.error[0]%>
                                                 </div>
                                                 <%}%>
+
+                                                    <div class="full relative">
+
+
+                                                        <div class="w-full my-4 ">
+
+
+
+                                                            <select id="paymentType"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                <option selected>Choose a Payment Option</option>
+                                                                <option value="cod">CASH ON DELIVERY
+                                                                </option>
+                                                                <option value="card">CARD</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                     <input name="mobile" type="text"
-                                                        class="border border-gray-400 p-2 w-full md:w-1/2 mb-4"
+                                                        class="border outline-orange-400 border-gray-400 p-2 w-full md:w-1/2 mb-4"
                                                         placeholder="Phone Number">
                                                     <input name="address" type="text"
-                                                        class="border border-gray-400 p-2 w-full md:w-1/2"
+                                                        class="border outline-orange-400 border-gray-400 p-2 w-full md:w-1/2"
                                                         placeholder="Address">
+
+                                                    <div id="card-element">
+
+                                                    </div>
+                                                    <div id="card-errors" role="alert"></div>
                                                     <div class="my-4">
 
                                                         <button id="orderButton"
@@ -74,6 +98,9 @@
                                                             type="submit">Order
                                                             Now</button>
                                                     </div>
+
+
+
                                         </form>
                                     </div>
 

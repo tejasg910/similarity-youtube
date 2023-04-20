@@ -48,6 +48,7 @@ const {
 const {
   showSingleOrder,
 } = require("../app/http/controllers/customers/showSingleOrder");
+const { doPayment } = require("../app/http/controllers/payment/stripe");
 
 function initRoutes(app) {
   app.set("views", path.join(__dirname, "../resource/views"));
@@ -80,6 +81,11 @@ function initRoutes(app) {
   app.get("/admin/orders", isAuthenticated, isAdmin, getAdminOrders);
 
   app.post("/admin/order/status", isAuthenticated, isAdmin, updateStatus);
+
+  //payment routes
+  //initializing a payment
+
+  app.get("/secret", doPayment);
 
   // Route to initiate Google authentication
   app.get(
